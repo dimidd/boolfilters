@@ -34,7 +34,12 @@ export function FilterGroup({
     onUpdateFilter,
     onRemoveFilter
 }) {
-    const group = groupId === 'root' ? store.rootGroup.value : store.groups.value[groupId];
+    // Access signals to establish reactivity - always access both to ensure tracking
+    const rootGroupValue = store.rootGroup.value;
+    const groupsValue = store.groups.value;
+    const filtersValue = store.filters.value;
+    
+    const group = groupId === 'root' ? rootGroupValue : groupsValue[groupId];
 
     if (!group) {
         return html`<div></div>`;
@@ -49,7 +54,7 @@ export function FilterGroup({
     const newRenderedGroups = new Set(renderedGroups);
     newRenderedGroups.add(groupId);
 
-    const parentGroup = parentGroupId === 'root' ? store.rootGroup.value : store.groups.value[parentGroupId];
+    const parentGroup = parentGroupId === 'root' ? rootGroupValue : groupsValue[parentGroupId];
     const connector = parentGroup?.connector || 'AND';
 
     // If root group is empty, don't render anything
@@ -62,7 +67,7 @@ export function FilterGroup({
     for (let idx = 0; idx < group.items.length; idx++) {
         const item = group.items[idx];
         if (item.type === 'filter') {
-            const filter = store.filters.value.find(f => f.id === item.id);
+            const filter = filtersValue.find(f => f.id === item.id);
             if (filter) {
                 itemElements.push(html`
                     <${FilterRow}
@@ -81,23 +86,26 @@ export function FilterGroup({
                 `);
             }
         } else if (item.type === 'group') {
-            itemElements.push(html`
-                <${FilterGroup}
-                    key=${'g-' + item.id}
-                    groupId=${item.id}
-                    parentGroupId=${groupId}
-                    index=${idx}
-                    renderedGroups=${newRenderedGroups}
-                    schema=${schema}
-                    store=${store}
-                    onAddFilter=${onAddFilter}
-                    onCreateGroup=${onCreateGroup}
-                    onRemoveGroup=${onRemoveGroup}
-                    onToggleConnector=${onToggleConnector}
-                    onUpdateFilter=${onUpdateFilter}
-                    onRemoveFilter=${onRemoveFilter}
-                />
-            `);
+            const subGroup = groupsValue[item.id];
+            if (subGroup) {
+                itemElements.push(html`
+                    <${FilterGroup}
+                        key=${'g-' + item.id}
+                        groupId=${item.id}
+                        parentGroupId=${groupId}
+                        index=${idx}
+                        renderedGroups=${newRenderedGroups}
+                        schema=${schema}
+                        store=${store}
+                        onAddFilter=${onAddFilter}
+                        onCreateGroup=${onCreateGroup}
+                        onRemoveGroup=${onRemoveGroup}
+                        onToggleConnector=${onToggleConnector}
+                        onUpdateFilter=${onUpdateFilter}
+                        onRemoveFilter=${onRemoveFilter}
+                    />
+                `);
+            }
         }
     }
 

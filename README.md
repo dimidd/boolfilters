@@ -2,6 +2,8 @@ filter-builder
 
 A reusable Preact-based filter builder UI component with AND/OR boolean connectors.
 
+![Filter Builder Demo](bool_filters.png)
+
 ## Overview
 
 This library provides a flexible filter builder interface that allows users to create complex filter expressions with boolean logic. Filters can be defined dynamically through a schema, making it adaptable to different use cases.
@@ -69,18 +71,25 @@ A demo page is included that shows the filter builder in action with a table of 
 
 ### Building the Demo
 
-To create a static bundled demo that works without a server:
+To create a static bundled demo that works **without a web server**:
 
 ```bash
 npm install
 npm run build
 ```
 
-This will create a `dist-demo` directory with a standalone `index.html` file that can be opened directly in your browser (no server needed!). Simply open `dist-demo/index.html` in your browser.
+This will create a `dist-demo` directory with a single, self-contained `index.html` file. All JavaScript, CSS, and assets are inlined into this one file, so **no web server is required**. You can:
+
+- Double-click `dist-demo/index.html` to open it in your browser
+- Or open it via the `file://` protocol (e.g., `file:///path/to/dist-demo/index.html`)
+
+The demo source files are located in the `demo/` directory (`demo/index.html` and `demo/demo.js`).
 
 ### Running the Demo (Development)
 
-For development, you can also use the original `demo.html` with a local web server:
+**Note:** The development version in the `demo/` directory **requires a web server** (it uses ES modules that need to be served over HTTP). The built version above does not need a server.
+
+To run the development demo:
 
 1. Start a local web server from the project root:
    ```bash
@@ -93,7 +102,7 @@ For development, you can also use the original `demo.html` with a local web serv
 
 2. Open your browser and navigate to:
    ```
-   http://localhost:8000/demo.html
+   http://localhost:8000/demo/
    ```
 
 ### Demo Features
