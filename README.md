@@ -3,6 +3,7 @@ filter-builder
 A reusable Preact-based filter builder UI component with AND/OR boolean connectors.
 
 ![Filter Builder Demo](bool_filters.png)
+# [Live Demo](https://cute-empanada-425012.netlify.app/)
 
 ## Overview
 
