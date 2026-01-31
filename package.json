@@ -1,5 +1,5 @@
 {
-  "name": "filter-builder",
+  "name": "preact-filter-builder",
   "version": "1.0.0",
   "type": "module",
   "description": "A reusable filter builder UI component with AND/OR boolean connectors",

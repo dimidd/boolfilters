@@ -1,4 +1,4 @@
-filter-builder
+preact-filter-builder
 
 A reusable Preact-based filter builder UI component with AND/OR boolean connectors.
 
@@ -21,7 +21,7 @@ This library provides a flexible filter builder interface that allows users to c
 ## Installation
 
 ```bash
-npm install filter-builder
+npm install preact-filter-builder
 ```
 
 ## Peer Dependencies
@@ -33,8 +33,8 @@ npm install filter-builder
 ## Usage
 
 ```javascript
-import { FilterBuilder, useFilterState } from 'filter-builder';
-import 'filter-builder/styles/filter-builder.css';
+import { FilterBuilder, useFilterState } from 'preact-filter-builder';
+import 'preact-filter-builder/styles/filter-builder.css';
 
 const schema = [
   { name: 'count', relations: ['<', '<=', '>', '>='], valueType: 'int' },
