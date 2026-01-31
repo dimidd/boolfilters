@@ -22,7 +22,7 @@
     "ui-component",
     "boolean-logic"
   ],
-  "author": "",
+  "author": "Dimid Duchovny",
   "license": "MIT",
   "peerDependencies": {
     "@preact/signals": "^1.2.0",
